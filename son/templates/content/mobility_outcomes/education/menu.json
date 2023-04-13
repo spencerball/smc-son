@@ -1,0 +1,12 @@
+{
+    "indicators": [
+        {
+            "slug": "educational_mobility_(absolute)",
+            "name": "Educational mobility (absolute)"
+        },
+        {
+            "slug": "educational_mobility_(relative)",
+            "name": "Educational mobility (relative)"
+        }
+    ]
+}

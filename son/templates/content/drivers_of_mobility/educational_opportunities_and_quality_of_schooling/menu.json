@@ -1,0 +1,24 @@
+{
+    "indicators": [
+        {
+            "slug": "further_education_and_training_opportunities",
+            "name": "Further education and training opportunities"
+        },
+        {
+            "slug": "availability_of_high-quality_school_education",
+            "name": "Availability of high-quality school education"
+        },
+        {
+            "slug": "access_to_higher_education_enrollment_rate_in_secondary_or_tertiary_education_at_age_19",
+            "name": "Access to higher education: enrollment rate in secondary or tertiary education at age 19"
+        },
+        {
+            "slug": "access_to_higher_education_initial_entrants_to_higher_education",
+            "name": "Access to higher education: initial entrants to higher education"
+        },
+        {
+            "slug": "availability_of_high-quality_higher_education",
+            "name": "Availability of high-quality higher education"
+        }
+    ]
+}

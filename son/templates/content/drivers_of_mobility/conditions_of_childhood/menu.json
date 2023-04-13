@@ -1,0 +1,20 @@
+{
+    "indicators": [
+        {
+            "slug": "distribution_of_earnings",
+            "name": "Distribution of earnings"
+        },
+        {
+            "slug": "childhood_poverty",
+            "name": "Childhood poverty"
+        },
+        {
+            "slug": "distribution_of_parental_education",
+            "name": "Distribution of parental education"
+        },
+        {
+            "slug": "distribution_of_parental_occupation",
+            "name": "Distribution of parental occupation"
+        }
+    ]
+}

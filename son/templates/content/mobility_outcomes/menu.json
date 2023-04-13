@@ -1,0 +1,24 @@
+{
+    "subdomains": [
+        {
+            "slug": "occupation",
+            "name": "Occupation"
+        },
+        {
+            "slug": "income",
+            "name": "Income"
+        },
+        {
+            "slug": "education",
+            "name": "Education"
+        },
+        {
+            "slug": "housing",
+            "name": "Housing"
+        },
+        {
+            "slug": "wealth",
+            "name": "Wealth"
+        }
+    ]
+}

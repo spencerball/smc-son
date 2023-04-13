@@ -1,0 +1,28 @@
+{
+    "indicators": [
+        {
+            "slug": "economic_activity",
+            "name": "Economic activity"
+        },
+        {
+            "slug": "unemployment",
+            "name": "Unemployment"
+        },
+        {
+            "slug": "occupational_level",
+            "name": "Occupational level"
+        },
+        {
+            "slug": "earnings",
+            "name": "Earnings"
+        },
+        {
+            "slug": "returns_to_education_(income_controlling_by_SEB)",
+            "name": "Returns to education (income, controlling by SEB)"
+        },
+        {
+            "slug": "direct_effect_of_social_origin_on_earnings",
+            "name": "Direct effect of social origin on earnings"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "subdomains": [
+        {
+            "slug": "conditions_of_childhood",
+            "name": "Conditions of childhood"
+        },
+        {
+            "slug": "educational_opportunities_and_quality_of_schooling",
+            "name": "Educational opportunities and quality of schooling"
+        },
+        {
+            "slug": "work_opportunities_for_young_people",
+            "name": "Work opportunities for young people"
+        },
+        {
+            "slug": "social_capital_and_connections",
+            "name": "Social capital and connections"
+        },
+        {
+            "slug": "environment_favouring_entrepreneurship",
+            "name": "Environment favouring entrepreneurship"
+        }
+    ]
+}

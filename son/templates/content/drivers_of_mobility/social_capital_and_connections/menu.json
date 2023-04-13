@@ -1,0 +1,12 @@
+{
+    "indicators": [
+        {
+            "slug": "civic_engagement",
+            "name": "Civic engagement"
+        },
+        {
+            "slug": "level_of_trust_fairness_and_helpfulness",
+            "name": "Level of trust, fairness and helpfulness"
+        }
+    ]
+}

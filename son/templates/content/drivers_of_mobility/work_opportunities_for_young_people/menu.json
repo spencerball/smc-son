@@ -1,0 +1,20 @@
+{
+    "indicators": [
+        {
+            "slug": "job_vacancy_rate",
+            "name": "Job vacancy rate"
+        },
+        {
+            "slug": "youth_unemployment",
+            "name": "Youth unemployment"
+        },
+        {
+            "slug": "occupational_level_of_25_to_29_year_olds",
+            "name": "Occupational level of 25 to 29 year olds"
+        },
+        {
+            "slug": "earnings_of_22_to_29_year_olds",
+            "name": "Earnings of 22 to 29 year olds"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "breakdowns": [
+        {
+            "slug": "overview",
+            "name": "Overview"
+        },
+        {
+            "slug": "sex",
+            "name": "By sex"
+        },
+        {
+            "slug": "ethnicity",
+            "name": "By ethnicity"
+        }
+    ]
+}

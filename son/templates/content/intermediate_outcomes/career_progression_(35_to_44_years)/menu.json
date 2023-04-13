@@ -1,0 +1,16 @@
+{
+    "indicators": [
+        {
+            "slug": "further_training_and_qualifications",
+            "name": "Further training and qualifications"
+        },
+        {
+            "slug": "occupational_progression",
+            "name": "Occupational progression"
+        },
+        {
+            "slug": "income_progression",
+            "name": "Income progression"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "indicators": [
+        {
+            "slug": "destinations_after_16_NEET",
+            "name": "Destinations after 16: NEET"
+        },
+        {
+            "slug": "destinations_after_age_16_education_and_training",
+            "name": "Destinations after age 16: education and training"
+        },
+        {
+            "slug": "destinations_after_age_16_employment",
+            "name": "Destinations after age 16: employment"
+        },
+        {
+            "slug": "entry_to_higher_education",
+            "name": "Entry to higher education"
+        },
+        {
+            "slug": "highest_qualification",
+            "name": "Highest qualification"
+        },
+        {
+            "slug": "skills_in_early_adulthood",
+            "name": "Skills in early adulthood"
+        }
+    ]
+}

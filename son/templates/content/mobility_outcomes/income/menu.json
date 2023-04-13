@@ -1,0 +1,12 @@
+{
+    "indicators": [
+        {
+            "slug": "income_mobility_(absolute)",
+            "name": "Income mobility (absolute)"
+        },
+        {
+            "slug": "income_mobility_(relative)",
+            "name": "Income mobility (relative)"
+        }
+    ]
+}

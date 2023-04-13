@@ -1,0 +1,12 @@
+{
+    "indicators": [
+        {
+            "slug": "housing_mobility_(absolute)",
+            "name": "Housing mobility (absolute)"
+        },
+        {
+            "slug": "housing_mobility_(relative)",
+            "name": "Housing mobility (relative)"
+        }
+    ]
+}

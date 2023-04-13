@@ -1,0 +1,20 @@
+{
+    "indicators": [
+        {
+            "slug": "level_of_development_at_age_5",
+            "name": "Level of development at age 5"
+        },
+        {
+            "slug": "attainment_at_age_11",
+            "name": "Attainment at age 11"
+        },
+        {
+            "slug": "attainment_at_age_16",
+            "name": "Attainment at age 16"
+        },
+        {
+            "slug": "skills_at_age_15",
+            "name": "Skills at age 15"
+        }
+    ]
+}

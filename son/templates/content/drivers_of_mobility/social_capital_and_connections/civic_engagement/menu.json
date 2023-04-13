@@ -1,0 +1,12 @@
+{
+    "breakdowns": [
+        {
+            "slug": "overview",
+            "name": "Overview"
+        },
+        {
+            "slug": "area",
+            "name": "By area"
+        }
+    ]
+}

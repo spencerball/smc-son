@@ -1,0 +1,12 @@
+{
+    "indicators": [
+        {
+            "slug": "occupational_mobility_(absolute)",
+            "name": "Occupational mobility (absolute)"
+        },
+        {
+            "slug": "occupational_mobility_(relative)",
+            "name": "Occupational mobility (relative)"
+        }
+    ]
+}

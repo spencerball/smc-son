@@ -1,0 +1,16 @@
+{
+    "indicators": [
+        {
+            "slug": "broadband_speed",
+            "name": "Broadband speed"
+        },
+        {
+            "slug": "business_expenditure_on_R_and_D",
+            "name": "Business expenditure on R and D"
+        },
+        {
+            "slug": "university_research_students",
+            "name": "University research students"
+        }
+    ]
+}

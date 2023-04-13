@@ -1,0 +1,20 @@
+{
+    "subdomains": [
+        {
+            "slug": "the_years_of_compulsory_schooling_(5_to_16_years)",
+            "name": "The years of compulsory schooling (5 to 16 years)"
+        },
+        {
+            "slug": "routes_into_work_(16_to_29_years)",
+            "name": "Routes into work (16 to 29 years)"
+        },
+        {
+            "slug": "work_in_early_adulthood_(25_to_29_years)",
+            "name": "Work in early adulthood (25 to 29 years)"
+        },
+        {
+            "slug": "career_progression_(35_to_44_years)",
+            "name": "Career progression (35 to 44 years)"
+        }
+    ]
+}

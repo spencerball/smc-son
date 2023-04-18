@@ -125,6 +125,11 @@
 
                     breakdownSelectElement.insertBefore(newOption, null);
                 })
+
+                if (jsonData.breakdowns.length === 1) {
+                    breakdownSelectElement.value = jsonData.breakdowns[0].slug;
+                    changePage();
+                }
             }
         }
 

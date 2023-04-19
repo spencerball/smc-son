@@ -352,9 +352,6 @@ menu = {
                     ]
                 }
             ]
-        },
-        {
-            'name': 'Social mobility by area'
         }
     ]
 }
@@ -656,9 +653,6 @@ _menu2 = {
                     ]	
                 }
             ]
-        },
-        {
-            'name': 'Social mobility by area'
         }
     ]
 }
@@ -906,9 +900,6 @@ _menu1 = {
                     ]
                 }
             ]
-        },
-        {
-            'name': 'Social mobility by area'
         }
     ]
 }

@@ -32,9 +32,8 @@
                 27.9% of adults in families were in upper or lower working class occupations in 2021, down from 39.3% in 2014.
             </p>
 
-            <p class="govuk-body">
-                PLACEHOLDER_FOR_CHART_DATA_DOWNLOAD
-            </p>
+            {% from 'components/chart-data-download.html' import chart_data_download %}
+            {{ chart_data_download() }}
 
             {% include current_template_dir + '/_about-the-data.html' %}
 

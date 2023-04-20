@@ -19,9 +19,8 @@
                 Data on the number of 16 to 24 year olds who were unemployed in the UK from 2014 to 2021.
             </p>
 
-            <p class="govuk-body">
-                PLACEHOLDER_FOR_CHART_DATA_DOWNLOAD
-            </p>
+            {% from 'components/chart-data-download.html' import chart_data_download %}
+            {{ chart_data_download() }}
 
             {% include current_template_dir + '/_about-the-data.html' %}
 

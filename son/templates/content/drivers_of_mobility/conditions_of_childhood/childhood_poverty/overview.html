@@ -32,9 +32,8 @@
                 The metropolitan areas of Greater London, Greater Manchester, and the West Midlands have some of the highest levels of childhood poverty.
             </p>
 
-            <p class="govuk-body">
-                PLACEHOLDER_FOR_CHART_DATA_DOWNLOAD
-            </p>
+            {% from 'components/chart-data-download.html' import chart_data_download %}
+            {{ chart_data_download() }}
 
             {% include current_template_dir + '/_about-the-data.html' %}
 

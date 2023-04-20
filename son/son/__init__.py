@@ -11,6 +11,18 @@ son = Blueprint('son', __name__)
 logger = Logger()
 
 
+def get_absolute_html_file_path(domain, subdomain, indicator, breakdown):
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'templates', 'content', domain, subdomain, indicator, f"{breakdown}.html")
+
+
+def get_relative_html_file_path(domain, subdomain, indicator, breakdown):
+    return f"content/{domain}/{subdomain}/{indicator}/{breakdown}.html"
+
+
+def get_relative_html_directory_path(domain, subdomain, indicator):
+    return f"content/{domain}/{subdomain}/{indicator}"
+
+
 def get_content(domain, subdomain=None, indicator=None):
     content = []
     if indicator is not None:
@@ -111,6 +123,13 @@ def domain_page(domain):
     )
 
 
+@son.route('/<domain>.json', methods=['GET'])
+def domain_json(domain):
+    return render_template(
+        f"content/{domain}/menu.json"
+    )
+
+
 @son.route('/<domain>/<subdomain>', methods=['GET'])
 def subdomain_page(domain, subdomain):
     return render_template(
@@ -122,6 +141,13 @@ def subdomain_page(domain, subdomain):
         title=get_item_title(subdomain),
         content=get_content(domain, subdomain),
         form=None
+    )
+
+
+@son.route('/<domain>/<subdomain>.json', methods=['GET'])
+def subdomain_json(domain, subdomain):
+    return render_template(
+        f"content/{domain}/{subdomain}/menu.json"
     )
 
 
@@ -151,6 +177,33 @@ def indicator_page(domain, subdomain, indicator):
         data_table=data_table,
         form=None
     )
+
+
+@son.route('/<domain>/<subdomain>/<indicator>.json', methods=['GET'])
+def indicator_json(domain, subdomain, indicator):
+    return render_template(
+        f"content/{domain}/{subdomain}/{indicator}/menu.json"
+    )
+
+
+@son.route('/<domain>/<subdomain>/<indicator>/<breakdown>', methods=['GET'])
+def breakdown_page(domain, subdomain, indicator, breakdown):
+    absolute_html_file_path = get_absolute_html_file_path(domain, subdomain, indicator, breakdown)
+    relative_html_file_path = get_relative_html_file_path(domain, subdomain, indicator, breakdown)
+    current_template_dir = get_relative_html_directory_path(domain, subdomain, indicator)
+
+    if Path(absolute_html_file_path).is_file():
+        return render_template(
+            relative_html_file_path,
+            menu=menu,
+            domain=domain,
+            subdomain=subdomain,
+            indicator=indicator,
+            breakdown=breakdown,
+            current_template_dir=current_template_dir
+        )
+
+    return "Page not found", 404
 
 
 @son.route('/output/', defaults={'page_path': ''}, methods=['GET'])

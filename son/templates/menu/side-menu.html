@@ -1,32 +1,160 @@
-{% macro sidemenu(menu, selecteddomain, selected) %}
-    <nav aria-label="Side navigation" class="moj-side-navigation govuk-!-padding-right-4 govuk-!-padding-top-2" role="navigation">
-        <ul class="moj-side-navigation__list collapsible">
-            {% for domain in menu.domains %}
-                {% if (domain.name | url_link) == (selecteddomain | url_link) %}
-                {% for subdomain in domain.subdomains %}
-                <li class="moj-side-navigation__item{{ [subdomain.name, selected] | menuitem_isactive }}{{ [menu, subdomain.name, selected] | menuitem_isopen }}">
-                    <a href="javascript:;" link="/{{ domain.name | url_link }}/{{ subdomain.name | url_link }}" class="collapsible-level1 collapsible__toggle-link">{{ subdomain.name }}</a>
-                    <!--<span class="collapsible-level1">{{ subdomain.name }}</span>-->
-                    <span class="collapsible__toggle-icon"></span>
-                    <ul class="moj-side-navigation__list">
-                        {% for indicator in subdomain.indicators %}
-                        <li class="moj-side-navigation__item{{ [indicator.name, selected] | menuitem_isactive }}{{ [menu, indicator.name, selected] | menuitem_isopen }}">
-                            <a href="/{{ domain.name | url_link }}/{{ subdomain.name | url_link }}/{{ indicator.name | url_link }}">{{ indicator.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </ul>
+{% macro sidemenu(menu, selectedDomain, selectedSubdomain, selectedIndicator, selectedBreakdown) %}
+    <div class="govuk-form-group govuk-!-margin-top-3 govuk-!-margin-bottom-4">
+        <label class="govuk-label govuk-label--s" for="subdomain_select">
+            Subdomain
+        </label>
+        <select class="govuk-select" id="subdomain_select" name="sort" style="max-width: 219px;">
+            <option value="instructions" id="subdomain_select_instructions" selected>Select a subdomain</option>
+        </select>
+    </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-!-margin-top-3 govuk-!-margin-bottom-3 govuk-section-break--visible">
-        <!--<h4 class="moj-side-navigation__title">Pages</h4>-->
-        <ul
-            class="govuk-!-font-size-14 govuk-!-margin-left-0 govuk-!-font-size-14 govuk-!-margin-left-0 moj-side-navigation__list">
-            <li class="moj-side-navigation__item"><a href="#">Background</a></li>
-            <li class="moj-side-navigation__item"><a href="#">About our analysis</a></li>
-        </ul>
-    </nav>
+    <div class="govuk-form-group govuk-!-margin-bottom-4">
+        <label class="govuk-label govuk-label--s" for="indicator_select">
+            Indicator
+        </label>
+        <select class="govuk-select" id="indicator_select" name="sort" style="max-width: 219px;">
+            <option value="instructions" id="indicator_select_instructions" selected>Select a subdomain</option>
+        </select>
+    </div>
+
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--s" for="breakdown_select">
+            Breakdown
+        </label>
+        <select class="govuk-select" id="breakdown_select" name="sort" style="max-width: 219px;">
+            <option value="instructions" id="breakdown_select_instructions" selected>Select a subdomain</option>
+        </select>
+    </div>
+
+    <script>
+        const selectedDomain = '{{ selectedDomain }}';
+        const selectedSubdomain = '{{ selectedSubdomain }}';
+        const selectedIndicator = '{{ selectedIndicator }}';
+        const selectedBreakdown = '{{ selectedBreakdown }}';
+
+        const subdomainSelectElement = document.getElementById('subdomain_select');
+        const indicatorSelectElement = document.getElementById('indicator_select');
+        const breakdownSelectElement = document.getElementById('breakdown_select');
+
+        const subdomainSelectInstructionsElement = document.getElementById('subdomain_select_instructions');
+        const indicatorSelectInstructionsElement = document.getElementById('indicator_select_instructions');
+        const breakdownSelectInstructionsElement = document.getElementById('breakdown_select_instructions');
+
+        function createOption(value, text) {
+            const newOption = document.createElement('option');
+            newOption.value = value;
+            newOption.innerText = text;
+            return newOption;
+        }
+
+        async function loadSubdomains() {
+            const response = await fetch(`/${selectedDomain}.json`);
+            const jsonData = await response.json();
+
+            subdomainSelectElement.innerText = '';
+            subdomainSelectElement.value = null;
+            const instructionsOption = createOption('instructions', 'Select a subdomain');
+            subdomainSelectElement.insertBefore(instructionsOption, null);
+
+            jsonData.subdomains.forEach(s => {
+                const newOption = createOption(s.slug, s.name);
+                if (s.slug === selectedSubdomain) {
+                    newOption.selected = true;
+                }
+
+                subdomainSelectElement.insertBefore(newOption, null);
+            })
+
+            await loadIndicators();
+        }
+
+        async function loadIndicators() {
+            const selectedSubdomainValue = subdomainSelectElement.value;
+            const subdomainHasRealValue = selectedSubdomainValue && selectedSubdomainValue !== 'instructions';
+            const subdomainHasDifferentValue = selectedSubdomainValue !== selectedSubdomain;
+
+            indicatorSelectElement.innerText = '';
+            indicatorSelectElement.value = null;
+            const instructionsOption = createOption('instructions', subdomainHasRealValue ? 'Select an indicator' : 'Select a subdomain');
+            indicatorSelectElement.insertBefore(instructionsOption, null);
+
+            if (subdomainHasRealValue) {
+                const response = await fetch(`/${selectedDomain}/${selectedSubdomainValue}.json`);
+                const jsonData = await response.json();
+
+                jsonData.indicators.forEach(s => {
+                    const newOption = createOption(s.slug, s.name);
+                    if (s.slug === selectedIndicator && !subdomainHasDifferentValue) {
+                        newOption.selected = true;
+                    }
+
+                    indicatorSelectElement.insertBefore(newOption, null);
+                })
+            }
+
+            await loadBreakdowns();
+        }
+
+        async function loadBreakdowns() {
+            const selectedSubdomainValue = subdomainSelectElement.value;
+            const subdomainHasRealValue = selectedSubdomainValue && selectedSubdomainValue !== 'instructions';
+            const subdomainHasDifferentValue = selectedSubdomainValue !== selectedSubdomain;
+            const selectedIndicatorValue = indicatorSelectElement.value;
+            const indicatorHasRealValue = selectedIndicatorValue && selectedIndicatorValue !== 'instructions';
+            const indicatorHasDifferentValue = selectedIndicatorValue !== selectedIndicator;
+
+            breakdownSelectElement.innerText = '';
+            breakdownSelectElement.value = null;
+            const instructionsText = indicatorHasRealValue
+                ? 'Select a breakdown'
+                : (subdomainHasRealValue
+                    ? 'Select an indicator'
+                    : 'Select a subdomain')
+            const instructionsOption = createOption('instructions', instructionsText);
+            breakdownSelectElement.insertBefore(instructionsOption, null);
+
+            if (indicatorHasRealValue) {
+                const response = await fetch(`/${selectedDomain}/${selectedSubdomainValue}/${selectedIndicatorValue}.json`);
+                const jsonData = await response.json();
+
+                jsonData.breakdowns.forEach(s => {
+                    const newOption = createOption(s.slug, s.name);
+                    if (s.slug === selectedBreakdown && !subdomainHasDifferentValue && !indicatorHasDifferentValue) {
+                        newOption.selected = true;
+                    }
+
+                    breakdownSelectElement.insertBefore(newOption, null);
+                })
+            }
+        }
+
+        function changePage() {
+            const selectedSubdomainValue = subdomainSelectElement.value;
+            const subdomainHasRealValue = selectedSubdomainValue && selectedSubdomainValue !== 'instructions';
+            const subdomainHasDifferentValue = selectedSubdomainValue !== selectedSubdomain;
+            const selectedIndicatorValue = indicatorSelectElement.value;
+            const indicatorHasRealValue = selectedIndicatorValue && selectedIndicatorValue !== 'instructions';
+            const indicatorHasDifferentValue = selectedIndicatorValue !== selectedIndicator;
+            const selectedBreakdownValue = breakdownSelectElement.value;
+            const breakdownHasRealValue = selectedBreakdownValue && selectedBreakdownValue !== 'instructions';
+            const breakdownHasDifferentValue = selectedBreakdownValue !== selectedBreakdown;
+
+            if (subdomainHasRealValue && indicatorHasRealValue && breakdownHasRealValue &&
+                (subdomainHasDifferentValue || indicatorHasDifferentValue || breakdownHasDifferentValue)) {
+                window.location.href = `/${selectedDomain}/${selectedSubdomainValue}/${selectedIndicatorValue}/${selectedBreakdownValue}`;
+            }
+        }
+
+        async function loadMenu() {
+            subdomainSelectElement.addEventListener("change", loadIndicators);
+            indicatorSelectElement.addEventListener("change", loadBreakdowns);
+            breakdownSelectElement.addEventListener("change", changePage);
+
+            if (selectedDomain) {
+                await loadSubdomains();
+            }
+        }
+
+        loadMenu();
+    </script>
 {% endmacro %}

@@ -99,7 +99,7 @@
     <div class="dashboard-container govuk-width-container">
         {% if domain %}
         <div class="dashboard-menu">
-            {{ sidemenu(menu, domain, indicator or subdomain or domain) }}
+            {{ sidemenu(menu, domain, subdomain, indicator, breakdown) }}
         </div>
         {% endif %}
 

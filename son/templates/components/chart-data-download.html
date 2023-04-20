@@ -1,4 +1,8 @@
-{% macro chart_data_download(file_download_link) %}
+{% from 'components/data-table.html' import data_table %}
+{% from 'components/download.html' import download %}
+{% from 'components/tabs.html' import tabs %}
+
+{% macro chart_data_download(csv_file, table_csv_file) %}
 
     {% macro chart_placeholder() %}
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-2" style="color: #f47738;">
@@ -124,7 +128,6 @@
         </p>
     {% endmacro %}
 
-    {% from 'components/tabs.html' import tabs %}
     {%
         set tabs_data = [
             {
@@ -135,12 +138,12 @@
             {
                 'id': 'data_table_tab',
                 'title': 'Data',
-                'content': data_table_placeholder()
+                'content': data_table(table_csv_file) if table_csv_file else (data_table(csv_file) if csv_file else data_table_placeholder())
             },
             {
                 'id': 'download_tab',
                 'title': 'Download',
-                'content': download_placeholder()
+                'content': download(csv_file) if csv_file else download_placeholder()
             }
         ]
     %}

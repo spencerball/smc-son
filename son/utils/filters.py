@@ -1,3 +1,6 @@
+import csv
+import os
+import pandas
 from datetime import datetime
 from dateutil import tz
 import jinja2
@@ -82,4 +85,13 @@ def attribute_filter(context, details):
                 return attributes[field]
         except:
             pass
+    return ''
+
+
+@jinja2.pass_context
+@blueprint.app_template_filter('read_csv')
+def read_csv(context, csv_file_name):
+    if csv_file_name:
+        csv_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'static', 'data-for-drop-down-prototype', csv_file_name)
+        return pandas.read_csv(csv_file_path)
     return ''

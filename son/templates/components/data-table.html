@@ -1,5 +1,28 @@
-{% macro datatable(id, data) %}
+{% macro data_table(csv_file_name) %}
 
+    {% set data_frame = csv_file_name | read_csv %}
 
+    <table class="govuk-table" style="width: fit-content;">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                {% for column_name in data_frame.columns %}
+                    <th scope="col" class="govuk-table__header">
+                        {{ column_name }}
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            {% for row_id in data_frame.index %}
+                <tr class="govuk-table__row">
+                    {% for column_name in data_frame.columns %}
+                        <td class="govuk-table__cell">
+                            {{ data_frame.at[row_id, column_name] }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endmacro %}

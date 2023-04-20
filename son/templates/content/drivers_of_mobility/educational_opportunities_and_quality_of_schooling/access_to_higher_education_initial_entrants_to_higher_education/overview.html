@@ -20,7 +20,7 @@
             </p>
 
             {% from 'components/chart-data-download.html' import chart_data_download %}
-            {{ chart_data_download() }}
+            {{ chart_data_download(csv_file='DR23b_overview.csv', table_csv_file='DR23b_overview-pretty.csv') }}
 
             {% include current_template_dir + '/_about-the-data.html' %}
 

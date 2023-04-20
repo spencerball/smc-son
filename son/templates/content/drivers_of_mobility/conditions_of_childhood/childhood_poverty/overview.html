@@ -33,7 +33,7 @@
             </p>
 
             {% from 'components/chart-data-download.html' import chart_data_download %}
-            {{ chart_data_download() }}
+            {{ chart_data_download(csv_file='DR12_overview.csv') }}
 
             {% include current_template_dir + '/_about-the-data.html' %}
 

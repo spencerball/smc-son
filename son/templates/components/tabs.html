@@ -1,0 +1,44 @@
+{% macro tabs(tabs_title, tabs_data) %}
+
+    <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+            {{ tabs_title }}
+        </h2>
+        <ul class="govuk-tabs__list">
+            {% set first_tab = true %}
+            {% for tab in tabs_data %}
+                <li class="govuk-tabs__list-item {{ 'govuk-tabs__list-item--selected' if first_tab else '' }}">
+                    <a class="govuk-tabs__tab" href="#{{ tab.id }}">
+                        {{ tab.title }}
+                    </a>
+                </li>
+                {% set first_tab = false %}
+            {% endfor %}
+        </ul>
+
+        {% set first_tab = true %}
+        {% for tab in tabs_data %}
+            <div class="govuk-tabs__panel  {{ '' if first_tab else 'govuk-tabs__panel--hidden' }}" id="{{ tab.id }}">
+                <h2 class="govuk-visually-hidden">
+                    {{ tab.title }}
+                </h2>
+
+                {{ tab.content }}
+            </div>
+            {% set first_tab = false %}
+        {% endfor %}
+    </div>
+
+    <style>
+        .govuk-tabs {
+            background: none !important;
+        }
+        .govuk-tabs__list {
+            margin: 0 -20px !important;
+        }
+        .govuk-tabs__panel {
+            padding: 10px 0 !important;
+        }
+    </style>
+
+{% endmacro %}

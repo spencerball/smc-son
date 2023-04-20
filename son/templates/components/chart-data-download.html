@@ -1,0 +1,149 @@
+{% macro chart_data_download(file_download_link) %}
+
+    {% macro chart_placeholder() %}
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-2" style="color: #f47738;">
+            Note: This is an example chart with fictitious values
+        </p>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+            Price of a pint of milk, in pence
+        </p>
+        <div id="chart_element" style="height: 300px; max-width: 800px;"></div>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script>
+            window.document.addEventListener('DOMContentLoaded', function () {
+                const chart_element = document.getElementById('chart_element');
+
+                // set the dimensions and margins of the graph
+                var margin = {top: 10, right: 30, bottom: 30, left: 60},
+                    width = chart_element.offsetWidth - margin.left - margin.right,
+                    height = chart_element.offsetHeight - margin.top - margin.bottom;
+
+                // append the svg object to the body of the page
+                var svg = d3.select("#chart_element")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+                //Read the data
+                d3.csv("/static/data-for-drop-down-prototype/pint-of-milk.csv",
+
+                    // When reading the csv, I must format variables:
+                    function (d) {
+                        return {date: d3.timeParse("%Y")(d.Year), value: d['Price of a pint of milk (pence)']}
+                    },
+
+                    // Now I can use this dataset:
+                    function (data) {
+
+                        // Add X axis --> it is a date format
+                        var x = d3.scaleTime()
+                            .domain(d3.extent(data, function (d) {
+                                return d.date;
+                            }))
+                            .range([0, width]);
+                        svg.append("g")
+                            .attr("transform", "translate(0," + height + ")")
+                            .call(d3.axisBottom(x));
+
+                        // Add Y axis
+                        var y = d3.scaleLinear()
+                            .domain([65, 105])
+                            .range([height, 0]);
+                        svg.append("g")
+                            .call(d3.axisLeft(y));
+
+                        // Add the line
+                        svg.append("path")
+                            .datum(data)
+                            .attr("fill", "none")
+                            .attr("stroke", "steelblue")
+                            .attr("stroke-width", 1.5)
+                            .attr("d", d3.line()
+                                .x(function (d) {
+                                    return x(d.date)
+                                })
+                                .y(function (d) {
+                                    return y(d.value)
+                                })
+                            )
+                    })
+            });
+        </script>
+    {% endmacro %}
+
+    {% macro data_table_placeholder() %}
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--s" style="color: #f47738;">
+                Note: This is an example data table with fictitious values
+            </caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Year</th>
+                    <th scope="col" class="govuk-table__header">Price of a pint of milk</th>
+                    <th scope="col" class="govuk-table__header">Number of retailers surveyed</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">2022</td>
+                    <td class="govuk-table__cell">£1.05</td>
+                    <td class="govuk-table__cell">6,438</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">2021</td>
+                    <td class="govuk-table__cell">94.8p</td>
+                    <td class="govuk-table__cell">5,192</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">2020</td>
+                    <td class="govuk-table__cell">75.6p</td>
+                    <td class="govuk-table__cell">7,104</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">2019</td>
+                    <td class="govuk-table__cell">72.3p</td>
+                    <td class="govuk-table__cell">6,742</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endmacro %}
+
+    {% macro download_placeholder() %}
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-2" style="color: #f47738;">
+            Note: This is an example CSV file download with fictitious values
+        </p>
+
+        <p class="govuk-body">
+            <a href="/static/data-for-drop-down-prototype/pint-of-milk.csv"
+               class="govuk-link">
+                Download the data (CSV, 1KB)
+            </a>
+        </p>
+    {% endmacro %}
+
+    {% from 'components/tabs.html' import tabs %}
+    {%
+        set tabs_data = [
+            {
+                'id': 'chart_tab',
+                'title': 'Chart',
+                'content': chart_placeholder()
+            },
+            {
+                'id': 'data_table_tab',
+                'title': 'Data',
+                'content': data_table_placeholder()
+            },
+            {
+                'id': 'download_tab',
+                'title': 'Download',
+                'content': download_placeholder()
+            }
+        ]
+    %}
+    {{ tabs('Tab title', tabs_data) }}
+
+{% endmacro %}

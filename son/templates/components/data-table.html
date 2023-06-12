@@ -23,8 +23,14 @@
             {% for row_id in data_frame.index %}
                 <tr class="govuk-table__row">
                     {% for column_name in data_frame.columns %}
-                        <td class="govuk-table__cell">
-                            {{ data_frame.at[row_id, column_name] }}
+                        <td class="govuk-table__cell" style="{{ 'text-align: right;' if (data_frame.dtypes.at[column_name] in ['int64', 'float64']) else '' }}">
+                            {% if data_frame.isna().at[row_id, column_name] %}
+                                <span style="color: #b1b4b6;">
+                                    n/a
+                                </span>
+                            {% else %}
+                                {{ data_frame.at[row_id, column_name] }}
+                            {% endif %}
                         </td>
                     {% endfor %}
                 </tr>

@@ -2,7 +2,7 @@
 {% from 'components/download.html' import download %}
 {% from 'components/tabs.html' import tabs %}
 
-{% macro chart_data_download(csv_file, table_csv_file) %}
+{% macro chart_data_download(csv_file, table_csv_file, data_caption) %}
 
     {% macro chart_placeholder() %}
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-2" style="color: #f47738;">
@@ -138,7 +138,7 @@
             {
                 'id': 'data_table_tab',
                 'title': 'Data',
-                'content': data_table(table_csv_file) if table_csv_file else (data_table(csv_file) if csv_file else data_table_placeholder())
+                'content': data_table(table_csv_file, data_caption) if table_csv_file else (data_table(csv_file) if csv_file else data_table_placeholder())
             },
             {
                 'id': 'download_tab',

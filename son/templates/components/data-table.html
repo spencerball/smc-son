@@ -1,8 +1,15 @@
-{% macro data_table(csv_file_name) %}
+{% macro data_table(csv_file_name, data_caption) %}
 
     {% set data_frame = csv_file_name | read_csv %}
 
-    <table class="govuk-table" style="width: fit-content;">
+    {% if data_caption %}
+        <div role="caption" id="data-table-caption"
+             class="govuk-table__caption govuk-table__caption--s"
+             style="display: block;">
+            {{ data_caption }}
+        </div>
+    {% endif %}
+    <table class="govuk-table" style="width: fit-content;" {% if data_caption %} aria-describedby="data-table-caption" {% endif %}>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 {% for column_name in data_frame.columns %}

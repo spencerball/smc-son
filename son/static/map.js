@@ -18,7 +18,11 @@ class Choropleth {
         this.rendered = false
         this.debug = false
 
-        this._init()
+        if (window['mapjs']) {
+            this.render()
+        } else {
+            this._init()
+        }
     }
 
     _init() {
@@ -100,8 +104,21 @@ class Choropleth {
                     return
                 }
             }
+
             console.info('Map resources loaded')
-            if (self.el && self.geodata && self.data) self.render()
+            window['mapjs'] = true
+
+            if (self.el && self.geodata && self.data) {
+                if (typeof self.options.responsive !== 'undefined' && self.options.responsive == true) {
+                    window.addEventListener('resize', function (event) {
+                        clearTimeout(window[`resized${self.el}`])
+                        window[`resized${self.el}`] = setTimeout(function () {
+                            self.render(self.filteredData)
+                        }, 250)
+                    }, true)
+                }
+                self.render()
+            }
         }
 
         for (let i = 0; i < resources.length; i++) {
@@ -140,10 +157,12 @@ class Choropleth {
         let domain = options.domain || []
         const colourScheme = options.colourScheme || ['#C6322A','#F2B06E', '#FFFEC6', '#B1D678', '#47934B']
         const legendSteps = options.legendSteps || 5
+        this.title = options.title || ''
         this.background = options.background || false
         this.legendDiv = options.legend || ''
         this.tooltip = ''
         this.tooltipDiv = options.tooltip || ''
+        this.tooltipTitle = options.tooltipTitle || undefined
         this.labels = options.labels || false
         this.tooltipBehaviour = ['rollover', 'click'].includes(options.tooltipBehaviour) ? options.tooltipBehaviour : ''
         this.rolloverBehaviour = ['outline', 'fade'].includes(options.rolloverBehaviour) ? options.rolloverBehaviour : ''
@@ -157,7 +176,7 @@ class Choropleth {
             fontFamily: 'GDS Transport',
             fontSize: '14px',
             overflow: 'visible',
-            backgroundColor: options.backgroundColor || '#fff'
+            backgroundColor: options.backgroundColor || 'transparent'
         }
         let self = this
 
@@ -270,9 +289,13 @@ class Choropleth {
                 .attr('id', `${self.el}__names`)
                 .attr('class', 'names')
 
-            info = d3.select(`#${self.el}`).append('div')
-                .attr('class', 'info')
-                .style('display', 'none')
+            //if (!document.getElementById(`${self.el}__info`)) {
+            //    info = d3.select(`#${self.el}`).append('div')
+            //        .attr('id', `${self.el}__info`)
+            //        .attr('class', 'info')
+            //} else {
+            //    info = d3.select(`#${self.el}__info`)
+            //}
 
             self.zoom = d3.zoom()
                 .scaleExtent([1, 15])  // [1 << 8, 1 << 22]
@@ -431,7 +454,7 @@ class Choropleth {
                     .style('fill', '#f3f2f1')
                     .style('stroke', '#ddd')
                     .style('stroke-width', '.1')
-                    //.style('visibility', x => areas.indexOf(x.properties.NUTS_ID) > -1 ? 'hidden' : 'visible')
+                    .style('visibility', x => areas.indexOf(x.properties.NUTS_ID) > -1 ? 'hidden' : 'visible')
                     .attr('data-name', x => x.properties.NUTS_NAME || x.properties.NUTS_ID)
 
                 const bgAdjust = getBounds({ type: 'FeatureCollection', features: topoFeatures(eudata).features.filter(x => { return areas.indexOf(x.properties.NUTS_ID) > -1 }) }, self.bg, undefined, undefined, '')
@@ -536,6 +559,7 @@ class Choropleth {
             }
 
             self.rendered = true
+            if (options.download) self.download()
 
             function getScaledTicks(type) {
                 return type == 'decile' ? 10 : type == 'quintile' ? 5 : 4
@@ -691,7 +715,7 @@ class Choropleth {
         }
 
         function mouseMoved(e) {
-            info.text(formatLocation(self.projection.invert(d3.pointer(e)), d3.zoomTransform(this).k))
+            //info.text(formatLocation(self.projection.invert(d3.pointer(e)), d3.zoomTransform(this).k))
         }
 
         function formatLocation(p, k) {
@@ -721,7 +745,7 @@ class Choropleth {
             if (!isNumeric(key)) return key
             let text
             if (['percent', '%'].includes(scale)) {
-                return `${pos == 'tooltip' || pos == 'label' ? parseFloat(key, 10).toFixed(2) : key}%`
+                return `${pos == 'tooltip' || pos == 'label' ? parseFloat(key, 10).toFixed(1) : key}%`
             } else if (['£', '$', '€'].includes(scale)) {
                 return `${scale == 'currency' ? '£' : scale}${numberWithCommas(parseFloat(key, 10).toFixed(2))}`
             } else if (scale == 'number') {

@@ -5,40 +5,42 @@ MO21
 Absolute income mobility
 
 ## Summary
-Placeholder summary text
+UK and international data on upward absolute income mobility – people whose income at 30 years old was higher than their parents’ income at the same age.
 
 ## Subtitle
 Summary main findings
 
 ## Text
-Placeholder summary main findings
+Data on people born between 1960 and 1987 in the UK shows that absolute income mobility was above 70% for people born in the mid-1970s. It went down to below 70% for people born later.
+
+The Netherlands had the highest level of absolute income mobility out of the 8 countries included in the data, at nearly 80% for people born in the mid-1970s. It also went down for people born in the 1980s.
 
 ## Section
-Overview
+By year of birth
 
-## Placeholder
+## Chart: Multi-line
+{ "code": "MO21", "title": "Percentage of children whose family income at 30 years old was higher than their parents’ family income at 30 years old, by country and year of birth (‘birth cohort’)", "data": "/static/data/indicators/MO21_overview-20230526.csv", "height": 450, "type": "liney", "xkey": "Time_period", "ykey": "Value", "zkey": "Area_name", "sort": "Time_period", "scale": "%", "xgrid": false, "ygrid": true, "xticks": 7, "yticks": 3, "legend": true, "colourScheme": ["#5694ca", "#d4351c", "#4c2c92", "#d53880", "#28a197", "#b58840", "#505a5f", "#f499be", "#85994b", "#6f72af"], "margin": [0, 0, 0, 0], "rolloverBehaviour": "fade", "clickBehaviour": "isolate", "columns": [{ "column": "Area_name", "heading": "Country" }, { "column": "Time_period" }, { "column": "Value", "heading": "Percentage", "align": "right", "format": "1dp" }] }
 
-## About
-# Data source(s)
-We would list the data sources here. e.g.<br>
-XYZ Survey, Office for National Statistics
+## About the data
+# Data source
+Manduca and others (2020). Trends in absolute income mobility in North America and Europe.
 
 # Time period
-e.g. 20XX to 20YY
+1960 to 1987 (people’s year of birth)
 
 # Geographic area
-e.g. UK
+UK and internationally
 
 # What the data measures
-A paragraph or two of text explaining what has been measured.<br>
-We might use this space to define specific terms.
+The data shows estimates of upward absolute income mobility for people born between 1960 and 1987.
+
+The upward absolute mobility rate is the percentage of children in each year (‘birth cohort’) whose family income at 30 years old was higher than their parents’ family income at 30 years old.
 
 # Things you need to know
-Here is a space to discuss the source and limitations of the data.<br>
-For example, who has been surveyed and how, whether anyone has been excluded from the data.
+Income is calculated before tax but after benefits, and adjusted for inflation. Incomes for each country are based on both register and survey data.
 
 # Type of data
-e.g. Survey data, weighted
+Survey data
 
 ## Text
 Read more in State of the Nation 2023 on GOV.UK.
@@ -47,10 +49,4 @@ Read more in State of the Nation 2023 on GOV.UK.
 Download the data
 
 ## Text
-<p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-2" style="color: #f47738;">
-    Note: This is an example CSV file download with fictitious values
-</p>
-
-<p class="govuk-body">
-    <a href="#" class="govuk-link">Download the data (CSV, 1KB)</a>
-</p>
+[Download full dataset (CSV)](/static/data/indicators/2023-05-26 MO21.csv){: target="_blank" class="download" }
